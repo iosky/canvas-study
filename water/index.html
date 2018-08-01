@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>使用差分方程来模拟水的扩散</title>
+</head>
+<style>
+  #container {
+    display: block;
+  }
+
+  body,
+  html {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .color-control {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+  }
+
+  .color-control h1 {
+    font-size: 70px;
+    text-align: center;
+    text-transform: capitalize;
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: lighter;
+  }
+
+  .color {
+    width: 30px;
+    height: 10px;
+    margin: 10px;
+    position: absolute;
+    bottom: 10px;
+    transition: all .6s cubic-bezier(0.32, -0.32, 0.71, 1.55);
+  }
+
+  .color:hover {
+    height: 25px;
+  }
+
+  .blue {
+    background-color: #367aec;
+    left: -10%;
+  }
+
+  .green {
+    background-color: #00ad7c;
+    left: 40%;
+  }
+
+  .purple {
+    background-color: #E84A5F;
+    left: 90%;
+  }
+</style>
+
+<body>
+  <canvas id="container"></canvas>
+  <div class="color-control">
+    <h1>liquid</h1>
+    <div class="color blue"></div>
+    <div class="color green"></div>
+    <div class="color purple"></div>
+  </div>
+</body>
+<script src="./main.js"></script>
+
+</html>
