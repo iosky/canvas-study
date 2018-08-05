@@ -1,9 +1,12 @@
 let maxX = 0
+let canvas = document.createElement('canvas')
+let cxt = canvas.getContext('2d')
+let cw = (canvas.width = window.innerWidth)
+let ch = (canvas.height = window.innerHeight)
+document.body.appendChild(canvas)
 class Word {
   constructor() {
     this.bubbles = []
-    this.canvas = document.createElement('canvas')
-    this.cxt = this.canvas.getContext('2d')
     this.offsetX = 0
     this.offsetY = 0
   }
@@ -25,15 +28,13 @@ class Word {
     let cxt = canvas.getContext('2d')
     cxt.fillStyle = 'orange'
     cxt.font = `${fontSize}px sans-serif`
-    cxt.fillText(value, 0, height - 30, window.innerWidth)
+    cxt.fillText(value, 0, height - 30, cw)
     this._getImage(canvas, cxt).then(() => {
-      this.canvas.width = window.innerWidth
-      this.canvas.height = window.innerHeight
-      this.offsetX = (window.innerWidth - maxX) / 2
+      this.offsetX = (cw - maxX) / 2
       this.bubbles.forEach(item => {
-        item.init(this.cxt, this.offsetX, this.offsetY)
+        item.setOffset(this.offsetX, this.offsetY)
+        item.init()
       })
-      document.body.appendChild(this.canvas)
     })
   }
 
@@ -66,7 +67,7 @@ class Word {
               if (2 * j > maxX) {
                 maxX = 2 * j
               }
-              let newBubble = new Bubble(j, i, 6, '#fff')
+              let newBubble = new Bubble(j * 2, i * 2, 6, '#fff')
               self.bubbles.push(newBubble)
             }
           }
@@ -83,9 +84,8 @@ class Word {
     container.innerText = value
     container.style.fontSize = `${fontSize}px`
     document.body.appendChild(container)
-    this.offsetX = (window.innerWidth - container.offsetWidth) / 2
-    this.offsetY =
-      (window.innerHeight - container.offsetHeight - fontSize * 2) / 2
+    this.offsetX = (cw - container.offsetWidth) / 2
+    this.offsetY = (ch - container.offsetHeight - fontSize * 2) / 2
     return { width: container.offsetWidth, height: container.offsetHeight }
   }
 }
@@ -97,18 +97,20 @@ class Bubble {
     this.color = color
   }
 
-  draw(cxt, ox, oy) {
-    let x, y
-    y = this.pos.y * 2 + oy
-    x = this.pos.x * 2 + ox
+  draw() {
     cxt.beginPath()
     cxt.fillStyle = this.color
-    cxt.arc(x, y, this.radius, 0, Math.PI * 2, false)
+    cxt.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2, false)
     cxt.fill()
   }
 
-  init(cxt, ox, oy) {
-    this.draw(cxt, ox, oy)
+  init() {
+    this.draw()
+  }
+
+  setOffset(x, y) {
+    this.pos.x += x
+    this.pos.y += y
   }
 }
 
@@ -119,3 +121,5 @@ texts.forEach(value => {
   words.push(word)
   word.draw(value)
 })
+
+// TODO: 下一步计划： 增加动画效果
