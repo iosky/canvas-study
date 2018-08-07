@@ -20,3 +20,19 @@ now.y += now.vy
 now.vx *= friction
 now.vy *= friction
 ```
+
+##角度反弹
+通过圆周运动的参数方程来实现坐标的旋转，把斜面旋转为水平面，水平面上的角度反弹，较为简单
+角度存在表示需要通过旋转角度获取真实的坐标值
+根据圆的参数方程 x = Rcos y = Rsin
+可得 oldx = Rcos(old)
+oldy = Rsin(old)
+old 表示在(oldx, oldy)这个点在圆上所处角度
+newx = Rcos(angle + old)
+newy = Rsin(angle + old)
+angle 表示旋转的角度
+展开三角函数得
+newx = Rcos(angle)cos(old) - Rsin(angle)sin(old)
+newy = Rsin(angle)cos(old) + Rcos(angle)sin(old)
+即 newx = Rcos(angle)oldx - Rsin(angle)oldy
+newy = Rsin(angle)oldx + Rcos(angle)oldy
