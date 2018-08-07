@@ -4,16 +4,19 @@ let canvas = document.querySelector('#demo'),
   ch = (canvas.height = window.innerHeight),
   ballNum = 3,
   balls = [],
-  targetBall = new Ball(cw / 2, ch / 2),
+  targetBall = new Ball(30),
   spring = 0.03,
   friction = 0.9,
   handle = null,
   animate = null,
   olderX = (olderY = 0)
-targetBall.radius = 30
+targetBall.x = cw / 2
+targetBall.h = ch / 2
 
 while (ballNum--) {
-  let ball = new Ball(utiles.random(0, cw), utiles.random(0, ch))
+  let ball = new Ball(10)
+  ball.x = utiles.random(0, cw)
+  ball.y = utiles.random(0, ch)
   balls.push(ball)
 }
 

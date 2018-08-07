@@ -1,8 +1,8 @@
 class Ball {
-  constructor(x, y) {
-    this.x = x
-    this.y = y
-    this.radius = 8
+  constructor(radius) {
+    this.x = 0
+    this.y = 0
+    this.radius = radius
     this.color = '#ff5722'
     this.lineWidth = 1
     this.rotation = 0
@@ -10,7 +10,8 @@ class Ball {
       x: 1,
       y: 1
     }
-    ;(this.vx = 0), (this.vy = 0)
+    this.vx = 0
+    this.vy = 0
   }
 
   draw() {
