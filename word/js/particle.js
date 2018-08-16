@@ -1,19 +1,19 @@
 class Particle {
   constructor({ x, y }) {
-    this.x = x
-    this.y = y
-
+    this.x = utiles.random(10, cw)
+    this.y = utiles.random(10, ch)
+    this.tx = x
+    this.ty = y
     this.radius = Math.random() * 4 + 2
     this.friction = 0.99
     this.gravity = 0
+    this.deceleration = 0.18
 
     this.vx = 0
     this.vy = 0
 
-    this.baseX = x
-    this.baseY = y
-
     this.flag = false
+    this.destory = false
 
     this.color = `rgba(255,255,255,${Math.random() + 0.1})`
   }
@@ -49,16 +49,19 @@ class Particle {
   }
 
   update() {
+
+      let dx = this.tx - this.x
+      let dy = this.ty - this.y
+
+      this.vx = dx * this.deceleration
+      this.vy = dy * this.deceleration
+
+
     this.x += this.vx
     this.y += this.vy
 
-    this.vy += this.gravity
-
-    this.vx *= this.friction
-    this.vy *= this.friction
-
-    // this.vx *= this.x > cw || this.x < 0 ? -1 : 1
-    // this.vy *= this.y > ch || this.y < 0 ? -1 : 1
+    this.vx *= this.x > cw || this.x < 0 ? -1 : 1
+    this.vy *= this.y > ch || this.y < 0 ? -1 : 1
 
     if (this.radius < 8 && this.flag === false) {
       this.radius += Math.random() * 0.2
@@ -70,18 +73,14 @@ class Particle {
       this.radius -= Math.random() * 0.2
     }
 
-    if (this.radius < 1) {
+    if (!this.destory && this.radius < 1) {
       this.radius = Math.random() * 4 + 2
       this.flag = false
-      // this.x = this.baseX
-      // this.y = this.baseY
-      this.flag = false
-      this.radius = Math.random() * 4 + 2
-      this.setSpeed(speed)
-      this.setAngle(Math.random() * 2 * Math.PI)
     }
-  }
 
+    //this.setSpeed(speed)
+    //this.setAngle(Math.random() * 2 * Math.PI)
+  }
   run() {
     this.draw()
     this.update()

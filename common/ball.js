@@ -2,6 +2,8 @@ class Ball {
   constructor(radius) {
     this.x = 0
     this.y = 0
+    this.tx = 0
+    this.ty = 0
     this.radius = radius
     this.color = '#ff5722'
     this.lineWidth = 1

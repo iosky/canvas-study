@@ -13,29 +13,29 @@ let word = new Shape({
   size: 100
 })
 
-let animateTarget = null
+let target = null
 word.getData()
 
 animate()
 
 setTimeout(() => {
-  speed = 10
-}, 500)
+  word.data.forEach(item => {
+    item.tx = utiles.random(0, cw)
+    item.ty = utiles.random(0, ch)
+    item.destory = true
+  })
+}, 1500)
 
 function animate() {
-  animateTarget = window.requestAnimationFrame(animate)
+  target = requestAnimationFrame(animate)
   cxt.clearRect(0, 0, cw, ch)
   word.data.forEach((item, index) => {
     item.run()
-    if (
-      item.x - item.radius > cw ||
-      item.x + item.radius < 0 ||
-      (item.y - item.radius > ch || item.y + item.radius < 0)
-    ) {
+    if (item.destory && item.radius < 1) {
       word.data.splice(index, 1)
     }
   })
   if (!word.data.length) {
-    window.cancelAnimationFrame(animateTarget)
+    cancelAnimationFrame(target)
   }
 }
