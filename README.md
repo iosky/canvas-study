@@ -21,6 +21,18 @@ now.vx *= friction
 now.vy *= friction
 ```
 
+##缓动动画
+缓动动画和弹性动画原理类似，都是根据相对距离来改变现在的位置，但是不同点在缓动动画是根据相对位置来改变物体速度。
+
+```javascript
+let dx = tx - x
+let dy = ty - y
+vx = dx * deceleration
+vy = dy * deceleration
+x += vx
+y += vy
+```
+
 ##角度反弹
 通过圆周运动的参数方程来实现坐标的旋转，把斜面旋转为水平面，水平面上的角度反弹，较为简单
 角度存在表示需要通过旋转角度获取真实的坐标值
